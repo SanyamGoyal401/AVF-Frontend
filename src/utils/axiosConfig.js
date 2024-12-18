@@ -36,9 +36,9 @@ app.interceptors.request.use(
   res.status(404).json({ err: "You are not authorized to do that." })
 
 */
-app.interceptors.response.use(
-  response => (response), 
-  error => (Promise.reject(error.response.details))
-)
+// app.interceptors.response.use(
+//   response => (response), 
+//   error => (Promise.reject(error.response.details))
+// )
 
 export default app;

@@ -19,6 +19,7 @@ const Dashboard = () => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openViewModal, setOpenViewModal] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
+  const [error, setError] = useState("");
 
   const fetchPatients = async () => {
     try {
@@ -28,6 +29,9 @@ const Dashboard = () => {
       console.log(response.data);
     } catch (error) {
       console.error('Error fetching patients:', error);
+      const errorString = error.response ? JSON.stringify(error.response.data, null, 2)
+        : JSON.stringify({ message: error.message });
+      setError(errorString);
     }
   };
 
@@ -74,6 +78,7 @@ const Dashboard = () => {
       setOpenUpdateModal(false);
     } catch (error) {
       console.error('Error updating patient:', error);
+      setError(error.response.data.message);
     }
   };
 
@@ -84,6 +89,7 @@ const Dashboard = () => {
       setOpenDeleteModal(false);
     } catch (error) {
       console.error('Error deleting patient:', error);
+      setError(error.response.data.message);
     }
   };
 
@@ -445,6 +451,9 @@ const Dashboard = () => {
                     Cancel
                   </Button>
                 </div>
+                {error ?
+                  <div style={{ color: 'red' }}>{error}</div> : <div></div>
+                }
               </div>
             )}
           </Box>
@@ -463,6 +472,9 @@ const Dashboard = () => {
                   Cancel
                 </Button>
               </div>
+              {error ?
+                <div style={{ color: 'red' }}>{error}</div> : <div></div>
+              }
             </div>
           </Box>
         </Modal>
@@ -473,67 +485,67 @@ const Dashboard = () => {
             {selectedPatient && (
               <div>
                 <div className={styles.formGroup}>
-                   Name: {selectedPatient.name}
+                  Name: {selectedPatient.name}
                 </div>
                 <div className={styles.formGroup}>
-                   Mobile: {selectedPatient.mobile}
+                  Mobile: {selectedPatient.mobile}
                 </div>
                 <div className={styles.formGroup}>
-                   Age: {selectedPatient.age}
+                  Age: {selectedPatient.age}
                 </div>
                 <div className={styles.formGroup}>
-                   Gender: {selectedPatient.gender}
+                  Gender: {selectedPatient.gender}
                 </div>
                 <div className={styles.formGroup}>
-                   Comorbidity: {selectedPatient.comorbidity}
+                  Comorbidity: {selectedPatient.comorbidity}
                 </div>
                 <div className={styles.formGroup}>
-                   Smoking: {selectedPatient.smoking}
+                  Smoking: {selectedPatient.smoking}
                 </div>
                 <div className={styles.formGroup}>
-                   Alcohol: {selectedPatient.alcohol}
+                  Alcohol: {selectedPatient.alcohol}
                 </div>
                 <div className={styles.formGroup}>
-                   Basic Disease: {selectedPatient.basicDisease}
+                  Basic Disease: {selectedPatient.basicDisease}
                 </div>
                 <div className={styles.formGroup}>
-                   AVF: {selectedPatient.avf}
+                  AVF: {selectedPatient.avf}
                 </div>
                 <div className={styles.formGroup}>
-                   Surgeon Experience: {selectedPatient.surgeonExperience}
+                  Surgeon Experience: {selectedPatient.surgeonExperience}
                 </div>
                 <div className={styles.formGroup}>
-                   Venous Course: {selectedPatient.venousCourse}
+                  Venous Course: {selectedPatient.venousCourse}
                 </div>
                 <div className={styles.formGroup}>
-                   Venous Caliber: {selectedPatient.venousCaliber}
+                  Venous Caliber: {selectedPatient.venousCaliber}
                 </div>
                 <div className={styles.formGroup}>
-                   Type of Anastomosis: {selectedPatient.typeOfAnastomosis}
+                  Type of Anastomosis: {selectedPatient.typeOfAnastomosis}
                 </div>
                 <div className={styles.formGroup}>
-                   Arterial Wall: {selectedPatient.arterialWall}
+                  Arterial Wall: {selectedPatient.arterialWall}
                 </div>
                 <div className={styles.formGroup}>
-                   AVF Group: {selectedPatient.avfGroup}
+                  AVF Group: {selectedPatient.avfGroup}
                 </div>
                 <div className={styles.formGroup}>
-                   Vein Diameter: {selectedPatient.veinDiameter}
+                  Vein Diameter: {selectedPatient.veinDiameter}
                 </div>
                 <div className={styles.formGroup}>
-                   Artery Diameter: {selectedPatient.arteryDiameter}
+                  Artery Diameter: {selectedPatient.arteryDiameter}
                 </div>
                 <div className={styles.formGroup}>
-                   Artery to Vein Distance: {selectedPatient.arteryToVeinDistance}
+                  Artery to Vein Distance: {selectedPatient.arteryToVeinDistance}
                 </div>
                 <div className={styles.formGroup}>
-                   Post-Op Complications: {selectedPatient.postOpComplications}
+                  Post-Op Complications: {selectedPatient.postOpComplications}
                 </div>
                 <div className={styles.formGroup}>
-                   Post-Op Thrill: {selectedPatient.postOpThrill}
+                  Post-Op Thrill: {selectedPatient.postOpThrill}
                 </div>
                 <div className={styles.formGroup}>
-                   Post-Op Bruit: {selectedPatient.postOpBruit}
+                  Post-Op Bruit: {selectedPatient.postOpBruit}
                 </div>
               </div>
             )}

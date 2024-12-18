@@ -32,7 +32,7 @@ const AdminForm = () => {
   });
 
   const navigate = useNavigate();
-
+  const [error, setError] = useState("");
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -46,6 +46,7 @@ const AdminForm = () => {
     }
     catch (error) {
       console.log(error);
+      setError(error.response.data.message || error.response.data.errorResponse.errmsg);
     }
   };
 
@@ -353,6 +354,9 @@ const AdminForm = () => {
         <button className={styles.button} type="submit">
           Submit
         </button>
+        {error ?
+          <div style={{ color: 'red' }}>{error}</div> : <div></div>
+        }
       </form>
     </div>
   );

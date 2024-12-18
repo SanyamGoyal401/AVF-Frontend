@@ -19,7 +19,7 @@ const Prediction = () => {
         'Venous Caliber': "",
         'Venous Stenosis': "",
         'Type of Anastomosis': "",
-        'ArterialWall': "",
+        'Arterial Wall': "",
         'Vein Diameter': 0,
         'Artery Diameter': 0,
         'Artery To Vein Distance': 0,
@@ -70,7 +70,6 @@ const Prediction = () => {
             const errorString = error.response ? JSON.stringify(error.response.data, null, 2)
                 : JSON.stringify({ message: error.message });
             setError(errorString);
-            setOpenModal(true);
         }
     };
 
@@ -90,6 +89,7 @@ const Prediction = () => {
                             className={styles.input}
                             type="number"
                             name="Age"
+                            min={1}
                             onChange={handleChange}
                         />
                     </div>
@@ -299,6 +299,9 @@ const Prediction = () => {
                     <button className={styles.button} type="submit">
                         Submit
                     </button>
+                    {error ? 
+                        <div style={{color: 'red'}}>{error}</div> : <div></div>
+                    }
                 </form>
             </div>
             <Modal open={openModal} onClose={() => setOpenModal(false)}>
