@@ -5,7 +5,7 @@ import url from '../constants';
 
 const app = axios.create({
     url: url.BaseUrl,
-    withCredentials: true
+    withCredentials: false
 })
 
 
@@ -38,7 +38,7 @@ app.interceptors.request.use(
 */
 app.interceptors.response.use(
   response => (response), 
-  error => (Promise.reject(error.response.data))
+  error => (Promise.reject(error.response.details))
 )
 
 export default app;

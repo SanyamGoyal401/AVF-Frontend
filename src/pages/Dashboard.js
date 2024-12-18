@@ -13,6 +13,8 @@ import url from '../constants';
 
 const Dashboard = () => {
   const [patients, setPatients] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredPatients, setFilteredPatients] = useState([]);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openViewModal, setOpenViewModal] = useState(false);
@@ -22,6 +24,7 @@ const Dashboard = () => {
     try {
       const response = await axios.get(`${url.BaseUrl}/patient`);
       await setPatients(response.data);
+      await setFilteredPatients(response.data)
       console.log(response.data);
     } catch (error) {
       console.error('Error fetching patients:', error);
@@ -31,6 +34,23 @@ const Dashboard = () => {
   useEffect(() => {
     fetchPatients();
   }, []);
+
+  const handleSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+
+    if (!query) {
+      // If search query is empty, show all patients
+      setFilteredPatients(patients);
+    } else {
+      // Filter patients based on search query
+      const filtered = patients.filter((patient) =>
+        (patient.name && patient.name.toLowerCase().includes(query)) ||
+        (patient.mobile && String(patient.mobile).includes(query))
+      );
+      setFilteredPatients(filtered);
+    }
+  };
 
   const handleUpdate = (patient) => {
     setSelectedPatient(patient);
@@ -46,8 +66,6 @@ const Dashboard = () => {
     setSelectedPatient(patient);
     setOpenViewModal(true);
   };
-
-
 
   const handleUpdateSubmit = async () => {
     try {
@@ -80,6 +98,15 @@ const Dashboard = () => {
   return (
     <div className={styles.dashboardContainer}>
       <Navbar />
+      <div className={styles.searchContainer}>
+        <TextField
+          label="Search by Name or Mobile"
+          variant="outlined"
+          fullWidth
+          value={searchQuery}
+          onChange={handleSearch}
+        />
+      </div>
       <div className={styles.tableContainer}>
         <TableContainer component={Paper}>
           <Table className={styles.table}>
@@ -93,7 +120,7 @@ const Dashboard = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {patients.map((patient) => (
+              {filteredPatients.map((patient) => (
                 <TableRow key={patient._id}>
                   <TableCell>{patient.name}</TableCell>
                   <TableCell>{patient.mobile}</TableCell>
