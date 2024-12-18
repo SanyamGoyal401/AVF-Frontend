@@ -1,0 +1,111 @@
+.dashboardContainer {
+  padding: 20px;
+}
+
+.tableHeading{
+  background-color: lightgray;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+}
+
+.tableContainer {
+  margin-top: 20px;
+}
+
+.table {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.tableCell {
+  font-size: 1rem;
+  font-style: bold;
+  font-weight: 700;
+}
+
+.modalContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 600px;
+  background-color: #fff;
+  border: 2px solid #000;
+  box-shadow: 24px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  gap: 16px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modalButtons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.input {
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.progressBar {
+  width: 100%;
+  background-color: #f3f3f3;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.progress {
+  height: 8px;
+  background-color: #4caf50;
+}
+
+.imageContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.imagePreview {
+  max-width: 100px;
+  max-height: 100px;
+  object-fit: cover;
+}
+
+@media (max-width: 600px) {
+  .modalContent {
+    width: 80%;
+    padding: 10px;
+  }
+
+  .modalButtons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .table {
+    font-size: 0.9rem;
+  }
+
+  .input {
+    font-size: 0.9rem;
+  }
+}
